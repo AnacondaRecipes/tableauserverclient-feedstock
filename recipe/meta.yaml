@@ -11,6 +11,7 @@ source:
 
 build:
   number: 0
+  # requests is for py>=38
   skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
@@ -22,6 +23,7 @@ requirements:
   host:
     - python
     - pip
+    - wheel
   run:
     - python
     - defusedxml >=0.7.1
@@ -36,12 +38,15 @@ test:
     - tableauserverclient.server
     - tableauserverclient.server.endpoint
   requires:
+    - pip
     - black
     - mock
     - mypy
     - pytest-subtests
     - pytest >=7.0
     # - requests-mock >=1.0,<2.0
+  commands:
+    - pip check
 
 about:
   home: https://github.com/tableau/server-client-python
