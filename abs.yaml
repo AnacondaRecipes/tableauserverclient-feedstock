@@ -2,5 +2,4 @@ upload_channels:
   - sfe1ed40
 
 channels:
-    - https://staging.continuum.io/prefect/fs/urllib3-feedstock/pr18/726026d
-    - https://staging.continuum.io/prefect/fs/requests-feedstock/pr12/7ca4497
+  lp_test: snowflake
