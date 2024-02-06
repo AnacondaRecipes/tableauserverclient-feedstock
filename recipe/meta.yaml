@@ -48,9 +48,11 @@ test:
 
 about:
   home: https://github.com/tableau/server-client-python
-  license: MIT
-  license_family: MIT
-  license_file: LICENSE
+  license: MIT and CC0-1.0
+  license_family: OTHER
+  license_file: 
+    - LICENSE
+    - LICENSE.versioneer
   summary: A Python library for the Tableau Server REST API
 
   description: |
