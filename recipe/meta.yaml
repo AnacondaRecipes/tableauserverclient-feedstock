@@ -48,13 +48,10 @@ test:
 
 about:
   home: https://github.com/tableau/server-client-python
-  license: MIT and CC0-1.0
-  license_family: OTHER
-  license_file: 
-    - LICENSE
-    - LICENSE.versioneer
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
   summary: A Python library for the Tableau Server REST API
-
   description: |
     Use the Tableau Server Client (TSC) library to increase your productivity
     as you interact with the Tableau Server REST API. With the TSC library you
