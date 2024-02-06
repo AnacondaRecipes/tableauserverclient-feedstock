@@ -16,14 +16,11 @@ build:
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
-  build:
-    - pytest-runner
-    - versioneer >=0.29
-    - wheel
   host:
     - python
     - pip
     - wheel
+    - versioneer >=0.29
   run:
     - python
     - defusedxml >=0.7.1
