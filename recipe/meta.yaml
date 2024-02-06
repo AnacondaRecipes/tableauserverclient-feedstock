@@ -36,14 +36,15 @@ test:
     - tableauserverclient.server.endpoint
   requires:
     - pip
-    - black
     - mock
-    - mypy
-    - pytest-subtests
     - pytest >=7.0
-    # - requests-mock >=1.0,<2.0
+    - requests-mock >=1.0,<2.0
+  source_files:
+    - test
   commands:
     - pip check
+    # ignore completely tests that depend on data files not contained in the tarball
+    - pytest test --ignore test/test_workbook.py --ignore test/test_view.py --ignore test/test_flow.py --ignore test/test_fileuploads.py --ignore test/test_filesys_helpers.py --ignore test/test_datasource.py
 
 about:
   home: https://github.com/tableau/server-client-python
