@@ -21,6 +21,7 @@ requirements:
     - pip
     - wheel
     - versioneer >=0.29
+    - setuptools >=68.0
   run:
     - python
     - defusedxml >=0.7.1
