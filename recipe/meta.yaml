@@ -1,5 +1,5 @@
 {% set name = "tableauserverclient" %}
-{% set version = "0.23.4" %}
+{% set version = "0.30" %}
 
 package:
   name: {{ name|lower }}
@@ -7,27 +7,27 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 1824a826191d91fcfe84a6c30346c1a97f58652ab73bd53c2db8e9a61f670df8
+  sha256: 30813a57ce312c46e0993c2f3fa8d00b41fffe00673133b5b28c0bd4720c6e94
 
 build:
-  noarch: python
   number: 0
-  script: PYTHONPATH=. {{ PYTHON }} -m pip install . -vv
+  # requests is for py>=38
+  skip: true  # [py<38]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
-  build:
-    - pytest-runner
-    - versioneer >=0.24
   host:
-    - python >=3.7
+    - python
     - pip
-    - pytest-runner
+    - wheel
+    - versioneer >=0.29
+    - setuptools >=68.0
   run:
-    - python >=3.7
+    - python
     - defusedxml >=0.7.1
-    - packaging ~=21.3
-    - requests >=2.28
-    - urllib3 ~=1.26.8
+    - packaging >=23.1
+    - requests >=2.31
+    - urllib3 2.0.7
 
 test:
   imports:
@@ -36,16 +36,16 @@ test:
     - tableauserverclient.server
     - tableauserverclient.server.endpoint
   requires:
-    # Despite argparse being in pyproject.toml as optional for testing purposes, it's only used in
-    # the samples, not the tests.
-    # Including it makes Conda unable to resolve the environment properly, because argparse is so
-    # ancient at this point. This will likely need to be commented out/removed going forward.
-    # - argparse
-    - black
+    - pip
     - mock
-    - mypy
     - pytest >=7.0
     - requests-mock >=1.0,<2.0
+  source_files:
+    - test
+  commands:
+    - pip check
+    # ignore completely tests that depend on data files not contained in the tarball
+    - pytest test --ignore test/test_workbook.py --ignore test/test_view.py --ignore test/test_flow.py --ignore test/test_fileuploads.py --ignore test/test_filesys_helpers.py --ignore test/test_datasource.py
 
 about:
   home: https://github.com/tableau/server-client-python
@@ -53,7 +53,6 @@ about:
   license_family: MIT
   license_file: LICENSE
   summary: A Python library for the Tableau Server REST API
-
   description: |
     Use the Tableau Server Client (TSC) library to increase your productivity
     as you interact with the Tableau Server REST API. With the TSC library you
